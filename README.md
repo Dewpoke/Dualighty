@@ -1,2 +1,2 @@
 # Dualighty
-WSOA3003 Final Group Project
+WSOA3004 Final Group Project
