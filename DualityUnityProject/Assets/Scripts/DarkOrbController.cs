@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DarkOrbController : MonoBehaviour
+public class DarkOrbController : OrbController
 {
     // Start is called before the first frame update
     void Start()
