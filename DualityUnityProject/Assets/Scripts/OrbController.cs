@@ -3,7 +3,7 @@ using System.Collections;
 
 public class OrbController : MonoBehaviour
 {
-    public bool isControlsActive = true;
+    public bool isControlsActive = false;
 
     protected int platformLayerMask = 1 << 8;
 

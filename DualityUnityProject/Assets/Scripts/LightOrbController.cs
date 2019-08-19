@@ -6,13 +6,23 @@ public class LightOrbController : OrbController
 {
     //Rigidbody2D rb;
 
+
     // Start is called before the first frame update
     void Start()
     {
         //rb = this.GetComponent<Rigidbody2D>();
 
         jumpSpeed = 5;
-    }
+
+        gravity = 5f;
+        moveAcceleration = 5f;
+        stopDeceleration = 6f;
+        maxMoveSpeed = 5f;
+        maxFallSpeed = 5f;
+
+        xVelocity = 0;
+        yVelocity = 0;
+}
 
     // Update is called once per frame
     void Update()
@@ -127,11 +137,15 @@ public class LightOrbController : OrbController
             hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.05f, platformLayerMask);
             Debug.DrawRay(rayStartPos, Vector3.down, Color.red, 0.05f);
             
-            if (hit.collider != null && hit.collider.tag != "LightWall")
+            if (hit.collider != null && hit.collider.tag != "LightWall") //Touching Ground
             {
                 this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
+                //if ()
+                //{
+
+                //}
                 //print(hit.collider.name);
-                print(hit.point);
+                //print(hit.point);
                 returnAnswer = true;
                 return returnAnswer;
                 //yVelocity = 0;
@@ -251,5 +265,15 @@ public class LightOrbController : OrbController
             }
         }
         return returnAnswer;
+    }
+
+    public void SetControlsActive (bool state)
+    {
+        isControlsActive = state;
+    }
+
+    public void SwapControlsActive()
+    {
+        isControlsActive = !isControlsActive;
     }
 }

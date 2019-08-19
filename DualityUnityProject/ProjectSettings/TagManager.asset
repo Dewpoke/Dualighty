@@ -6,6 +6,9 @@ TagManager:
   tags:
   - LightWall
   - DarkWall
+  - LightBackground
+  - DarkBackground
+  - Ice
   layers:
   - Default
   - TransparentFX
