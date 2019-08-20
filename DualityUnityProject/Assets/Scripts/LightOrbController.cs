@@ -29,7 +29,14 @@ public class LightOrbController : OrbController
     {
         if (isControlsActive)
         {
-            LightOrbControls();
+            if (!InOppositeBackgroundCheck())
+            {
+                LightOrbControls();
+            }
+            else
+            {
+                LightOrbControlsNerfed();
+            }
         }
         //RoundColliderLeftWallDetection();
         //RoundColliderRightWallDetection();
@@ -64,7 +71,7 @@ public class LightOrbController : OrbController
                 //print("Moving right");
             }
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isGrounded)
             {
@@ -73,6 +80,38 @@ public class LightOrbController : OrbController
             }
         }
         
+    }
+
+    void LightOrbControlsNerfed()
+    {
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            if (xVelocity > -maxMoveSpeed * slowPenalty)
+            {
+                xVelocity -= moveAcceleration * slowPenalty * Time.deltaTime;
+                //print("Moving Left");
+            }
+
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            if (xVelocity < maxMoveSpeed * slowPenalty)
+            {
+                xVelocity += moveAcceleration * slowPenalty * Time.deltaTime;
+                //print("Moving right");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isGrounded)
+            {
+                yVelocity = jumpSpeed * 3/4f;
+                print("Jump!");
+            }
+        }
+
     }
 
 
@@ -173,7 +212,7 @@ public class LightOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "LightWall")
             {
-                print(hit.collider.name);
+                //print(hit.collider.name);
                 returnAnswer = true;
                 return returnAnswer;
                 //yVelocity = 0;
@@ -201,7 +240,7 @@ public class LightOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "LightWall")
             {
-                print(hit.collider.name);
+                //print(hit.collider.name);
                 returnAnswer = true;
                 return returnAnswer;
                 //yVelocity = 0;
@@ -229,7 +268,7 @@ public class LightOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "LightWall")
             {
-                print(hit.collider.name);
+                //print(hit.collider.name);
                 returnAnswer = true;
                 return returnAnswer;
                 //yVelocity = 0;
@@ -255,7 +294,7 @@ public class LightOrbController : OrbController
             hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.05f, platformLayerMask);
             Debug.DrawRay(rayStartPos, Vector3.down, Color.red, 0.05f);
 
-            if (hit.collider != null && hit.collider.tag != "LightWall")
+            if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
             {
                 print(hit.collider.name);
                 returnAnswer = true;
@@ -265,6 +304,19 @@ public class LightOrbController : OrbController
             }
         }
         return returnAnswer;
+    }
+
+    bool InOppositeBackgroundCheck()
+    {
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(this.transform.position, Vector2.down, 0.5f, backGroundLayerMask);
+        Debug.DrawRay(this.transform.position, Vector3.down, Color.black);
+
+        if (hit.collider != null && hit.collider.tag != "LightBackground")
+        {
+            return true;
+        }
+        return false;
     }
 
     public void SetControlsActive (bool state)

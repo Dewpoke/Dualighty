@@ -29,7 +29,12 @@ public class DarkOrbController : OrbController
     {
         if (isControlsActive)
         {
-            LightOrbControls();
+            if (!InOppositeBackgroundCheck())
+                DarkOrbControls();
+            else
+            {
+                DarkOrbControlsNerfed();
+            }
         }
         //RoundColliderLeftWallDetection();
         //RoundColliderRightWallDetection();
@@ -43,7 +48,7 @@ public class DarkOrbController : OrbController
         PhysicsStuff();
     }
 
-    void LightOrbControls()
+    void DarkOrbControls()
     {
 
 
@@ -64,7 +69,7 @@ public class DarkOrbController : OrbController
                 //print("Moving right");
             }
         }
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             if (isGrounded)
             {
@@ -75,6 +80,37 @@ public class DarkOrbController : OrbController
 
     }
 
+    void DarkOrbControlsNerfed()
+    {
+
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            if (xVelocity > -maxMoveSpeed * slowPenalty)
+            {
+                xVelocity -= moveAcceleration * slowPenalty * Time.deltaTime;
+                //print("Moving Left");
+            }
+
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            if (xVelocity < maxMoveSpeed * slowPenalty)
+            {
+                xVelocity += moveAcceleration * slowPenalty * Time.deltaTime;
+                //print("Moving right");
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (isGrounded)
+            {
+                yVelocity = jumpSpeed * 3/4f;
+                print("Jump!");
+            }
+        }
+
+    }
 
     void PhysicsStuff()
     {
@@ -225,7 +261,7 @@ public class DarkOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "DarkWall")
             {
-                print(hit.collider.name);
+                //print(hit.collider.name);
                 returnAnswer = true;
                 return returnAnswer;
                 //yVelocity = 0;
@@ -261,6 +297,20 @@ public class DarkOrbController : OrbController
             }
         }
         return returnAnswer;
+    }
+
+    bool InOppositeBackgroundCheck()
+    {
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(this.transform.position, Vector2.down, 0.5f, backGroundLayerMask);
+        Debug.DrawRay(this.transform.position, Vector3.down, Color.black);
+
+        if (hit.collider != null && hit.collider.tag != "DarkBackground") //if the background is something that is not dark
+        {
+            print("FOREIGN WALL!!");
+            return true;
+        }
+        return false;
     }
 
     public void SetControlsActive(bool state)

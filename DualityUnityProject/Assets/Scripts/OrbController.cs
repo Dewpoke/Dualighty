@@ -6,6 +6,7 @@ public class OrbController : MonoBehaviour
     public bool isControlsActive = false;
 
     protected int platformLayerMask = 1 << 8;
+    protected int backGroundLayerMask = 1 << 9;
 
 
     [SerializeField]
@@ -21,6 +22,8 @@ public class OrbController : MonoBehaviour
 
     protected float xVelocity = 0;
     protected float yVelocity = 0;
+
+    protected float slowPenalty = 1/2f;
 
     
 }
