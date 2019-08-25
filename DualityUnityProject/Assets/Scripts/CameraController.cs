@@ -7,6 +7,9 @@ public class CameraController : MonoBehaviour
     public GameObject lightPlayerOrb;
     public GameObject darkPlayerOrb;
 
+    float startSize = 10;
+    float zoomModifier = 0.1f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,7 @@ public class CameraController : MonoBehaviour
 
     void StayBetweenTheTwo()
     {
-        this.transform.position = (lightPlayerOrb.transform.position + darkPlayerOrb.transform.position) / 2 + Vector3.back * 10; ;
+        this.transform.position = (lightPlayerOrb.transform.position + darkPlayerOrb.transform.position) / 2 + Vector3.back * 10;
+        this.GetComponent<Camera>().orthographicSize = startSize * (lightPlayerOrb.transform.position - darkPlayerOrb.transform.position).magnitude * zoomModifier;
     }
 }
