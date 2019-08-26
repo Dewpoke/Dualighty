@@ -55,7 +55,7 @@ public class BasicPlatformScript : MonoBehaviour
     {
         if (usesInputs)//Update to work with multiple
         {
-            CheckIsActive();
+           isActive = CheckIsActive();
         }
         switch (operatingMode)
         {
@@ -106,7 +106,7 @@ public class BasicPlatformScript : MonoBehaviour
         }
     }
 
-    bool CheckInputs() //Check if the inputs return an 'ON' or 'OFF'
+    bool CheckIsActive() //Check if the inputs return an 'ON' or 'OFF'
     {
         if (usesAND) //Uses AND
         {
@@ -123,7 +123,7 @@ public class BasicPlatformScript : MonoBehaviour
         {
             for (int i = 0; i < inputButtonsArr.Length; i++)//Loop through the inputs
             {
-                if (!inputButtonsArr[i].GetComponent<ButtonScript>().GetIsActive())//If even one input is true
+                if (inputButtonsArr[i].GetComponent<ButtonScript>().GetIsActive())//If even one input is true
                 {
                     return true;
                 }
@@ -178,9 +178,9 @@ public class BasicPlatformScript : MonoBehaviour
         }
     }
 
-    void CheckIsActive()//Make work with multiple inputs
+    /*void CheckIsActive()//Make work with multiple inputs
     {
         isActive = (inputButtonsArr[0].GetComponent<ButtonScript>().GetIsActive());
     }
-
+    */
 }
