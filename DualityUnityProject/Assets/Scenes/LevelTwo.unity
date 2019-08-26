@@ -548,7 +548,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 5391b5ea47f2bac488a5dab5482e1d21, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -568,7 +568,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 196944504}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.51, y: -4.69, z: 0}
+  m_LocalPosition: {x: 7.51, y: -4.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1669982711}
@@ -717,7 +717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 231298735}
   - component: {fileID: 231298736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1656,7 +1656,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 577755842}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3, y: -0.1, z: 0}
+  m_LocalPosition: {x: -0.73, y: 0.84, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 1}
   m_Children: []
   m_Father: {fileID: 1669982711}
@@ -2323,7 +2323,7 @@ GameObject:
   m_Component:
   - component: {fileID: 703572491}
   - component: {fileID: 703572490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3063,7 +3063,7 @@ GameObject:
   m_Component:
   - component: {fileID: 966896074}
   - component: {fileID: 966896073}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DarkDoor
   m_TagString: DarkWall
   m_Icon: {fileID: 0}
@@ -3107,7 +3107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: e20fb7ce2d640c742afb59ba287b1d75, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b79c22e1dedf25478bd3de389c28820, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4434,7 +4434,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -90
+  m_SortingOrder: -80
   m_Sprite: {fileID: 21300000, guid: ee3cbca7bd059b64e9ff42b669bbb1d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4454,7 +4454,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1392015499}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.39, y: -4.08, z: 0}
+  m_LocalPosition: {x: 7.39, y: -3.79, z: 0}
   m_LocalScale: {x: 1.3019999, y: 1.0368, z: 1}
   m_Children: []
   m_Father: {fileID: 1669982711}
@@ -4682,7 +4682,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1472616064}
   - component: {fileID: 1472616063}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tree2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
