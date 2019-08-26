@@ -8,7 +8,7 @@ public class CameraController : MonoBehaviour
     public GameObject darkPlayerOrb;
 
     float startSize = 10;
-    float zoomModifier = 0.1f;
+    float zoomModifier = 0.05f;
 
     // Start is called before the first frame update
     void Start()
