@@ -2,21 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundChangeScript : MonoBehaviour
+public class PlatformChangeScript : MonoBehaviour
 {
     public GameObject[] inputButtonsArr; //The button inputs (if they exist)
     public bool usesAND; //If the inputs are AND or OR
     [SerializeField]
     bool isActive; //If the overall input is 'ON'
 
-    public Sprite lightBackgroundSprite;
-    public Sprite darkBackgroundSprite;
+    public Sprite lightWallSprite;
+    public Sprite darkWallSprite;
 
-    public bool startLight;
-    void Start()
-    {
-        
-    }
+    public int startColour; //0 for neutral, 1 for light, 2 for dark
+    public int endColour;
 
     // Update is called once per frame
     void Update()
@@ -24,38 +21,53 @@ public class BackgroundChangeScript : MonoBehaviour
         isActive = CheckIsActive();
         if (isActive)//If the switch is ON
         {
-            if (startLight)//If the background starts as Light
+            switch (endColour)//Change to end colour
             {
-                ChangeToDark();
-            }
-            else//If the background starts as Dark
-            {
-                ChangeToLight();
+                case 0:
+                    ChangeToNeutral();
+                    break;
+                case 1:
+                    ChangeToLight();
+                    break;
+                case 2:
+                    ChangeToDark();
+                    break;
             }
         }
         else//If the switch is OFF
         {
-            if (startLight)//If the background starts as Light
+            switch (startColour)//change to start colour
             {
-                ChangeToLight();
-            }
-            else//If the background starts as Dark
-            {
-                ChangeToDark();
+                case 0:
+                    ChangeToNeutral();
+                    break;
+                case 1:
+                    ChangeToLight();
+                    break;
+                case 2:
+                    ChangeToDark();
+                    break;
+
             }
         }
     }
 
     void ChangeToLight()
     {
-        this.tag = "LightBackground";
-        this.GetComponent<SpriteRenderer>().sprite = lightBackgroundSprite;
+        this.tag = "LightWall";
+        this.GetComponent<SpriteRenderer>().sprite = lightWallSprite;
     }
 
     void ChangeToDark()
     {
-        this.tag = "DarkBackground";
-        this.GetComponent<SpriteRenderer>().sprite = darkBackgroundSprite;
+        this.tag = "DarkWall";
+        this.GetComponent<SpriteRenderer>().sprite = darkWallSprite;
+    }
+
+    void ChangeToNeutral()
+    {
+        this.tag = "Untagged";
+
     }
 
     bool CheckIsActive()
