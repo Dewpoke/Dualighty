@@ -61,13 +61,17 @@ public class DarkOrbController : OrbController
             }
 
         }
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             if (xVelocity < maxMoveSpeed)
             {
                 xVelocity += moveAcceleration * Time.deltaTime;
                 //print("Moving right");
             }
+        }
+        else
+        {
+            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
