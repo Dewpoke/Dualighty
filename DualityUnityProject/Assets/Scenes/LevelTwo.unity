@@ -1003,7 +1003,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.058454633, y: 0.36826372}
+  m_Offset: {x: -0.07364242, y: -0.4198985}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1014,7 +1014,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8723214, y: 2.9020214}
+  m_Size: {x: 0.74949574, y: 1.325697}
   m_EdgeRadius: 0
 --- !u!114 &197808754
 MonoBehaviour:
@@ -5523,7 +5523,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.036280274, y: 0.61546314}
+  m_Offset: {x: 0.020840406, y: -0.2619244}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5534,7 +5534,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8707311, y: 3.1388443}
+  m_Size: {x: 0.6664165, y: 1.3840692}
   m_EdgeRadius: 0
 --- !u!114 &1330814036
 MonoBehaviour:
@@ -6250,7 +6250,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3083747373014798223, guid: 48f88692ae1a58e4ba16bb4feaab3e6d,
+  m_Sprite: {fileID: -8963486390043463838, guid: 48f88692ae1a58e4ba16bb4feaab3e6d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6307,7 +6307,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.84, y: 0.53}
+    oldSize: {x: 0.82, y: 0.5}
     newSize: {x: 0.84, y: 0.53}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -6964,7 +6964,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8963486390043463838, guid: 48f88692ae1a58e4ba16bb4feaab3e6d,
+  m_Sprite: {fileID: -3083747373014798223, guid: 48f88692ae1a58e4ba16bb4feaab3e6d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7021,7 +7021,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.82, y: 0.5}
+    oldSize: {x: 0.84, y: 0.53}
     newSize: {x: 0.82, y: 0.5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
