@@ -311,7 +311,7 @@ public class DarkOrbController : OrbController
 
         if (hit.collider != null && hit.collider.tag != "DarkBackground") //if the background is something that is not dark
         {
-            print("FOREIGN WALL!!");
+            //print("FOREIGN WALL!!");
             return true;
         }
         return false;
