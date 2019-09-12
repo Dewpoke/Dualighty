@@ -18,6 +18,8 @@ public class PlayerManager : MonoBehaviour
         darkOrbActive = !startOnLightOrb;
         lightPlayerOrb.GetComponent<LightOrbController>().SetControlsActive(startOnLightOrb);
         darkPlayerOrb.GetComponent<DarkOrbController>().SetControlsActive(!startOnLightOrb);
+
+        RespawnPlayers();
     }
 
     // Update is called once per frame
@@ -41,13 +43,13 @@ public class PlayerManager : MonoBehaviour
         darkPlayerOrb.GetComponent<DarkOrbController>().SetControlsActive(darkOrbActive);
     }
 
-    void RespawnPlayers()
+    public void RespawnPlayers()
     {
         //move players to spawn point, then make them stop moving
-        lightPlayerOrb.transform.position = GameObject.Find("CheckpointManager").GetComponent<CheckpointManagerScript>().GetActiveCheckpoint().transform.GetChild(0).transform.position;
-        darkPlayerOrb.transform.position = GameObject.Find("CheckpointManager").GetComponent<CheckpointManagerScript>().GetActiveCheckpoint().transform.GetChild(1).transform.position;
+        lightPlayerOrb.transform.position = GameObject.Find("CheckpointManager").GetComponent<CheckpointManagerScript>().GetActiveCheckpoint().transform.GetChild(0).transform.position + Vector3.back * 10;
+        darkPlayerOrb.transform.position = GameObject.Find("CheckpointManager").GetComponent<CheckpointManagerScript>().GetActiveCheckpoint().transform.GetChild(1).transform.position + Vector3.back * 10;
 
-
-
+        lightPlayerOrb.GetComponent<LightOrbController>().StopMomentum();
+        darkPlayerOrb.GetComponent<DarkOrbController>().StopMomentum();
     }
 }

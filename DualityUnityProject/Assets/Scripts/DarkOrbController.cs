@@ -5,7 +5,7 @@ using UnityEngine;
 public class DarkOrbController : OrbController
 {
     //Rigidbody2D rb;
-
+    public GameObject darkGlow;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +18,7 @@ public class DarkOrbController : OrbController
         moveAcceleration = 5f;
         stopDeceleration = 6f;
         maxMoveSpeed = 5f;
-        maxFallSpeed = 5f;
+        maxFallSpeed = 10f;
 
         xVelocity = 0;
         yVelocity = 0;
@@ -29,16 +29,20 @@ public class DarkOrbController : OrbController
     {
         if (isControlsActive)
         {
+            darkGlow.SetActive(true);
             if (!InOppositeBackgroundCheck())
+            {
                 DarkOrbControls();
+            }
             else
             {
                 DarkOrbControlsNerfed();
             }
         }
         else
-        {//Temp fix for slowing down orb
+        {//Temp fix for slowing down orb aaaand now also used for the glow
             xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            darkGlow.SetActive(false);
         }
 
     }
@@ -87,7 +91,7 @@ public class DarkOrbController : OrbController
     void DarkOrbControlsNerfed()
     {
 
-
+        print("DARK NERFED");
         if (Input.GetKey(KeyCode.A))
         {
             if (xVelocity > -maxMoveSpeed * slowPenalty)
@@ -97,7 +101,7 @@ public class DarkOrbController : OrbController
             }
 
         }
-        if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
             if (xVelocity < maxMoveSpeed * slowPenalty)
             {
@@ -163,7 +167,12 @@ public class DarkOrbController : OrbController
         }
 
         this.transform.position = this.transform.position + new Vector3(xVelocity * Time.deltaTime, yVelocity * Time.deltaTime, 0);
-        yVelocity = yVelocity - gravity * gravity *  Time.fixedDeltaTime;
+        if (yVelocity > -maxFallSpeed)
+        {
+            yVelocity = yVelocity - gravity * gravity * Time.fixedDeltaTime;
+        }
+
+        StepUpCheck();
     }
 
     bool RoundColliderFloorDetection()
@@ -299,7 +308,7 @@ public class DarkOrbController : OrbController
             if (hit.collider != null && hit.collider.tag != "DarkWall") //If it hits something that isn't a dark wall
             {
                 //print(hit.collider.name);
-                hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 1f, platformLayerMask);
+                hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 0.6f, platformLayerMask);
                 if (hit.collider.tag != "DarkWall")
                     this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
                 return true;
@@ -394,9 +403,33 @@ public class DarkOrbController : OrbController
         return returnAnswer;
     }
 
-    bool StepUpCheck()
+    void StepUpCheck()
     {
-        return false;
+        if (xVelocity > 0.2f)//if moving right
+        {
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(0.48f, 0f);
+            RaycastHit2D hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.5f, platformLayerMask);
+            Debug.DrawLine(rayStartPos, rayStartPos + Vector2.down * 0.5f, Color.white,0.01f);
+
+            if (hit.collider != null && hit.collider.tag != "DarkWall") //If it hits something that isn't a dark wall
+            {
+                this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
+
+            }
+        }
+        else if (xVelocity < -0.2f)//if moving left
+        {
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(-0.48f, 0f);
+            RaycastHit2D hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.5f, platformLayerMask);
+            Debug.DrawLine(rayStartPos, rayStartPos + Vector2.down * 0.5f, Color.white, 0.01f);
+
+            if (hit.collider != null && hit.collider.tag != "DarkWall") //If it hits something that isn't a dark wall
+            {
+                this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
+
+            }
+        }
+        
     }
 
     bool InOppositeBackgroundCheck()
@@ -416,5 +449,11 @@ public class DarkOrbController : OrbController
     public void SetControlsActive(bool state)
     {
         isControlsActive = state;
+    }
+
+    public void StopMomentum()
+    {
+        xVelocity = 0;
+        yVelocity = 0;
     }
 }

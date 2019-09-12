@@ -5,14 +5,14 @@ using UnityEngine;
 public class LightOrbController : OrbController
 {
     //Rigidbody2D rb;
-
+    public GameObject lightGlow;
 
     // Start is called before the first frame update
     void Start()
     {
         //rb = this.GetComponent<Rigidbody2D>();
 
-        jumpSpeed = 7;
+        jumpSpeed = 15;
 
         gravity = 5f;
         moveAcceleration = 5f;
@@ -29,6 +29,7 @@ public class LightOrbController : OrbController
     {
         if (isControlsActive)
         {
+            lightGlow.SetActive(true);
             if (!InOppositeBackgroundCheck())
             {
                 LightOrbControls();
@@ -39,8 +40,9 @@ public class LightOrbController : OrbController
             }
         }
         else
-        {//temp fix to slow down orb
+        {//temp fix to slow down orb aaaand also the glow
             xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            lightGlow.SetActive(false);
         }
         //RoundColliderLeftWallDetection();
         //RoundColliderRightWallDetection();
@@ -131,7 +133,7 @@ public class LightOrbController : OrbController
     }
 
 
-    void PhysicsStuff()
+    void PhysicsStuff()//in charge of collision detection and stopping on collision
     {
         //bool isTouchingFloor = RoundColliderFloorDetection();
         bool isTouchingFloor = BoxColliderFloorDetection();
@@ -178,7 +180,16 @@ public class LightOrbController : OrbController
         }
 
         this.transform.position = this.transform.position + new Vector3(xVelocity * Time.deltaTime, yVelocity * Time.deltaTime, 0);
-        yVelocity = yVelocity - gravity * Time.fixedDeltaTime;
+        if (yVelocity > -maxFallSpeed) {
+            if (yVelocity > 0)//if moving upwards
+            {
+                yVelocity = yVelocity - gravity * gravity * Time.fixedDeltaTime;
+            }
+            else //if moving downwards
+            {
+                yVelocity = yVelocity - gravity * Time.fixedDeltaTime;
+            }
+        }
     }
 
     bool RoundColliderFloorDetection()
@@ -402,7 +413,7 @@ public class LightOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
             {
-                print(hit.collider.name);
+                //print(hit.collider.name);
                 returnAnswer = true;
                 return returnAnswer;
                 //yVelocity = 0;
@@ -428,6 +439,12 @@ public class LightOrbController : OrbController
     public void SetControlsActive (bool state)
     {
         isControlsActive = state;
+    }
+
+    public void StopMomentum()
+    {
+        xVelocity = 0;
+        yVelocity = 0;
     }
 
 }

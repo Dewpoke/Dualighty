@@ -20,7 +20,7 @@ public class SpikeKillScript : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            
+            GameObject.Find("PlayerManager").GetComponent<PlayerManager>().RespawnPlayers();
         }
     }
 }
