@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour
     float startSize = 10;
     float zoomModifier = 0.05f;
 
-    bool isFollowingLight = true;
+    bool isFollowingLight = true; //if the camera is following the Light orb or not
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         FollowPlayer(); 
         if (Input.GetKeyDown(KeyCode.Q))
@@ -37,8 +37,8 @@ public class CameraController : MonoBehaviour
     void FollowPlayer()
     {
         if (isFollowingLight)
-            this.transform.position = lightPlayerOrb.transform.position + Vector3.back * 10;
+            this.transform.position = Vector3.Lerp(this.transform.position, lightPlayerOrb.transform.position + Vector3.back * 50, 0.2f);
         else
-            this.transform.position = darkPlayerOrb.transform.position + Vector3.back * 10;
+            this.transform.position = Vector3.Lerp(this.transform.position,  darkPlayerOrb.transform.position + Vector3.back * 50, 0.2f);
     }
 }

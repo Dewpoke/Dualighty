@@ -5,14 +5,14 @@ using UnityEngine;
 public class LightOrbController : OrbController
 {
     //Rigidbody2D rb;
-
+    public GameObject lightGlow;
 
     // Start is called before the first frame update
     void Start()
     {
         //rb = this.GetComponent<Rigidbody2D>();
 
-        jumpSpeed = 5;
+        jumpSpeed = 15;
 
         gravity = 5f;
         moveAcceleration = 5f;
@@ -29,6 +29,7 @@ public class LightOrbController : OrbController
     {
         if (isControlsActive)
         {
+            lightGlow.SetActive(true);
             if (!InOppositeBackgroundCheck())
             {
                 LightOrbControls();
@@ -37,6 +38,11 @@ public class LightOrbController : OrbController
             {
                 LightOrbControlsNerfed();
             }
+        }
+        else
+        {//temp fix to slow down orb aaaand also the glow
+            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            lightGlow.SetActive(false);
         }
         //RoundColliderLeftWallDetection();
         //RoundColliderRightWallDetection();
@@ -127,14 +133,19 @@ public class LightOrbController : OrbController
     }
 
 
-    void PhysicsStuff()
+    void PhysicsStuff()//in charge of collision detection and stopping on collision
     {
-        bool isTouchingFloor = RoundColliderFloorDetection();
-        //bool isTouchingFloor = BoxColliderFloorDetection();
+        //bool isTouchingFloor = RoundColliderFloorDetection();
+        bool isTouchingFloor = BoxColliderFloorDetection();
 
-        bool isTouchingRoof = RoundColliderRoofDetection();
-        bool isTouchingRightWall = RoundColliderRightWallDetection();
-        bool isTouchingLeftWall = RoundColliderLeftWallDetection();
+        //bool isTouchingRoof = RoundColliderRoofDetection();
+        bool isTouchingRoof = BoxColliderRoofDetection(); ;
+
+        //bool isTouchingRightWall = RoundColliderRightWallDetection();
+        bool isTouchingRightWall = BoxColliderRightWallDetection();
+
+        //bool isTouchingLeftWall = RoundColliderLeftWallDetection();
+        bool isTouchingLeftWall = BoxColliderLeftWallDetection();
 
         isGrounded = isTouchingFloor;
 
@@ -169,7 +180,16 @@ public class LightOrbController : OrbController
         }
 
         this.transform.position = this.transform.position + new Vector3(xVelocity * Time.deltaTime, yVelocity * Time.deltaTime, 0);
-        yVelocity = yVelocity - gravity * Time.fixedDeltaTime;
+        if (yVelocity > -maxFallSpeed) {
+            if (yVelocity > 0)//if moving upwards
+            {
+                yVelocity = yVelocity - gravity * gravity * Time.fixedDeltaTime;
+            }
+            else //if moving downwards
+            {
+                yVelocity = yVelocity - gravity * Time.fixedDeltaTime;
+            }
+        }
     }
 
     bool RoundColliderFloorDetection()
@@ -308,7 +328,92 @@ public class LightOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
             {
-                print(hit.collider.name);
+                hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 1f, platformLayerMask);
+                if (hit.collider.tag != "LightWall")
+                    this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
+                returnAnswer = true;
+                return returnAnswer;
+                //yVelocity = 0;
+                //break;
+            }
+        }
+        return returnAnswer;
+    }
+
+    bool BoxColliderRoofDetection()
+    {
+        float startValue = -0.5f;
+        float endValue = 0.5f;
+        int numOfRays = 10;
+        bool returnAnswer = false;
+
+        RaycastHit2D hit;
+        for (int i = 0; i < numOfRays + 1; i++)
+        {
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(startValue + (endValue - startValue) * i / numOfRays, 0.5f);
+            //rayStartPos = rayStartPos.normalized * this.transform.lossyScale.magnitude/2;
+            //print(rayStartPos);
+            hit = Physics2D.Raycast(rayStartPos, Vector2.up, 0.05f, platformLayerMask);
+            Debug.DrawRay(rayStartPos, Vector3.up, Color.magenta, 0.05f);
+
+            if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
+            {
+                //print(hit.collider.name);
+                return true;
+                //yVelocity = 0;
+                //break;
+            }
+        }
+        return returnAnswer;
+    }
+
+    bool BoxColliderLeftWallDetection()
+    {
+        float startValue = -0.4f;
+        float endValue = 0.4f;
+        int numOfRays = 10;
+        bool returnAnswer = false;
+
+        RaycastHit2D hit;
+        for (int i = 0; i < numOfRays + 1; i++)
+        {
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(-0.5f, startValue + (endValue - startValue) * i / numOfRays);
+            //rayStartPos = rayStartPos.normalized * this.transform.lossyScale.magnitude/2;
+            //print(rayStartPos);
+            hit = Physics2D.Raycast(rayStartPos, Vector2.left, 0.05f, platformLayerMask);
+            Debug.DrawRay(rayStartPos, Vector3.left, Color.yellow, 0.05f);
+
+            if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
+            {
+                //print(hit.collider.name);
+                returnAnswer = true;
+                return returnAnswer;
+                //yVelocity = 0;
+                //break;
+            }
+        }
+        return returnAnswer;
+    }
+
+    bool BoxColliderRightWallDetection()
+    {
+        float startValue = -0.4f;
+        float endValue = 0.4f;
+        int numOfRays = 10;
+        bool returnAnswer = false;
+
+        RaycastHit2D hit;
+        for (int i = 0; i < numOfRays + 1; i++)
+        {
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(0.5f, startValue + (endValue - startValue) * i / numOfRays);
+            //rayStartPos = rayStartPos.normalized * this.transform.lossyScale.magnitude/2;
+            //print(rayStartPos);
+            hit = Physics2D.Raycast(rayStartPos, Vector2.right, 0.05f, platformLayerMask);
+            Debug.DrawRay(rayStartPos, Vector3.right, Color.blue, 0.05f);
+
+            if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
+            {
+                //print(hit.collider.name);
                 returnAnswer = true;
                 return returnAnswer;
                 //yVelocity = 0;
@@ -336,8 +441,10 @@ public class LightOrbController : OrbController
         isControlsActive = state;
     }
 
-    public void SwapControlsActive()
+    public void StopMomentum()
     {
-        isControlsActive = !isControlsActive;
+        xVelocity = 0;
+        yVelocity = 0;
     }
+
 }
