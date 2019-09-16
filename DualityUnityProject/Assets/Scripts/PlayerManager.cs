@@ -19,7 +19,7 @@ public class PlayerManager : MonoBehaviour
         lightPlayerOrb.GetComponent<LightOrbController>().SetControlsActive(startOnLightOrb);
         darkPlayerOrb.GetComponent<DarkOrbController>().SetControlsActive(!startOnLightOrb);
 
-        RespawnPlayers();
+        //RespawnPlayers();
     }
 
     // Update is called once per frame
