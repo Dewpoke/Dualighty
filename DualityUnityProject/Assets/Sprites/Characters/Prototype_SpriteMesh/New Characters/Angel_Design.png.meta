@@ -1,0 +1,280 @@
+fileFormatVersion: 2
+guid: d3b5673760d873b4e8a69d886911ec04
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4217906962725468597
+    second: Angel_Design_0
+  - first:
+      213: 1751780116162593802
+    second: Angel_Design_1
+  - first:
+      213: -677503845003768765
+    second: Angel_Design_2
+  - first:
+      213: 233274701371044572
+    second: Angel_Design_3
+  - first:
+      213: -5025818632231733480
+    second: Angel_Design_4
+  - first:
+      213: 2607456759117606216
+    second: Angel_Design_5
+  - first:
+      213: 8152491301686067820
+    second: Angel_Design_6
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Angel_Design_0
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 436
+        width: 133
+        height: 61
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11dd3a5b21508784b81b5c400d8b0f02
+      internalID: 4217906962725468597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Design_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 293
+        width: 210
+        height: 148
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40163602162595a478229be3d4ad0c41
+      internalID: 1751780116162593802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Design_2
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 258
+        width: 139
+        height: 189
+      alignment: 9
+      pivot: {x: 0.5, y: 0.49999997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7de0fab071d08945abba82b87a67355
+      internalID: -677503845003768765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Design_3
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 71
+        width: 186
+        height: 217
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 259c70d34af954249a7fde2ac5309842
+      internalID: 233274701371044572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Design_4
+      rect:
+        serializedVersion: 2
+        x: 232.00002
+        y: 65
+        width: 133.99998
+        height: 185
+      alignment: 9
+      pivot: {x: 0.4962686, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c854bec0bacd094aba500811008bf91
+      internalID: -5025818632231733480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Design_5
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 36
+        width: 40
+        height: 29
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9857367758bb6e349a62a606a1593aa1
+      internalID: 2607456759117606216
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Angel_Design_6
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 40
+        width: 40
+        height: 29
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b235348dcb699184cb644fbc21b875de
+      internalID: 8152491301686067820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: b503700c72dd97044b96759d84932293
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 637043394683878797
+  assetBundleName: 
+  assetBundleVariant: 
