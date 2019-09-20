@@ -41,7 +41,7 @@ public class BasicPlatformScript : MonoBehaviour
         for (int i = 1; i < this.transform.childCount; i++) //i starts at 1, as 0 is reserved for the moving platform
         {
             nodePositionsArr[i-1] = this.transform.GetChild(i).gameObject;
-            print(nodePositionsArr[i - 1].name);
+            //print(nodePositionsArr[i - 1].name);
         }
     }
 
