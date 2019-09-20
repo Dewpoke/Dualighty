@@ -35,7 +35,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    void SwapPlayer()
+    void SwapPlayer() //NB: If both are inactive and canSwap == true, then both will become active. Opposite is also true
     {
         lightOrbActive = !lightOrbActive;
         lightPlayerOrb.GetComponent<LightOrbController>().SetControlsActive(lightOrbActive);

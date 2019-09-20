@@ -447,4 +447,23 @@ public class LightOrbController : OrbController
         yVelocity = 0;
     }
 
+    public bool getIsControlsActive()
+    {
+        return isControlsActive;
+    }
+
+    private void OnCollissionStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Interactable")
+        {
+            if (isControlsActive)
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    collision.gameObject.GetComponent<ButtonScript>().InteractWithButton();
+                }
+            }
+        }
+    }
+
 }

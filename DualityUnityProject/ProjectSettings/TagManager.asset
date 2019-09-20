@@ -9,6 +9,7 @@ TagManager:
   - LightBackground
   - DarkBackground
   - Ice
+  - Interactable
   layers:
   - Default
   - TransparentFX

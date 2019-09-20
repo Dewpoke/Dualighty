@@ -456,4 +456,18 @@ public class DarkOrbController : OrbController
         xVelocity = 0;
         yVelocity = 0;
     }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Interactable")
+        {
+            if (isControlsActive)
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    collision.gameObject.GetComponent<ButtonScript>().InteractWithButton();
+                }
+            }
+        }
+    }
 }

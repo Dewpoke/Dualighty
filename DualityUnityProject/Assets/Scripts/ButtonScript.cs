@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ButtonScript : MonoBehaviour
 {
-    public int triggerMode; //0 is stay-on-button, 1 is once-off, 2 is toggle.
+    public int triggerMode; //0 is stay-on-button, 1 is once-off, 2 is toggle, 3 is interact-button
 
     public bool isActive = false;
 
     bool canRetrigger = true;//used for toggle, turns off when the player is on the button (after everything else), turns on when the player exits
+
+    GameObject playerTrigger;//The player object triggering the button
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +44,9 @@ public class ButtonScript : MonoBehaviour
                         canRetrigger = false;
                     }
                     break;
+                case 3:
+                    //Display interact button
+                    break;
             }
         }
         else //if the player is not on the button
@@ -55,6 +60,8 @@ public class ButtonScript : MonoBehaviour
                     break;
                 case 2:
                     canRetrigger = true;
+                    break;
+                case 3:
                     break;
             }
         }
@@ -81,8 +88,13 @@ public class ButtonScript : MonoBehaviour
         }
     }
 
-    public bool GetIsActive()
+    public bool GetIsActive() //Gives the state of the button
     {
         return isActive;
+    }
+
+    public void InteractWithButton()
+    {
+        isActive = !isActive;
     }
 }
