@@ -7,6 +7,9 @@ public class SoundEffects : MonoBehaviour
 
     public static SoundEffects Instance = null;
     public AudioClip openDoor;
+    public AudioClip flapWings;
+    public AudioClip passageDoor;
+    
     public AudioSource source;
     void Start()
     {
@@ -25,5 +28,7 @@ public class SoundEffects : MonoBehaviour
    public void PlayOneShot( AudioClip clip)
     {
         source.PlayOneShot(openDoor);
+        source.PlayOneShot(flapWings);
+        source.PlayOneShot(passageDoor);
     }
 }
