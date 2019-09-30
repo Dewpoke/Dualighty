@@ -1611,7 +1611,8 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6784429165042507694, guid: 7c935602e4de7eb45a6d3f6a25ef92b7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7c935602e4de7eb45a6d3f6a25ef92b7, type: 3}
 --- !u!1 &178144630 stripped
 GameObject:
@@ -4308,6 +4309,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.52233636, y: 2.2027583}
   m_EdgeRadius: 0
+--- !u!114 &437255131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437255127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e480a2534bab84f44979c0a48e5c0ec9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationArr: []
+  animator: {fileID: 0}
 --- !u!1 &441582084
 GameObject:
   m_ObjectHideFlags: 0
@@ -13054,6 +13069,44 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1411915441}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1412423944 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7261011866660259262, guid: 7c935602e4de7eb45a6d3f6a25ef92b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 178144629}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1412423946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412423944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9413b66a122c4184ca1a74efb816c315, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputButtonsArr:
+  - {fileID: 1882510007}
+  usesAND: 0
+  isActive: 0
+--- !u!111 &1412423947
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412423944}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 1a810e0517a9ccc4e82c84daf14edc2c, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 1a810e0517a9ccc4e82c84daf14edc2c, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1434361414
 GameObject:
   m_ObjectHideFlags: 0
@@ -14820,6 +14873,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -80
       objectReference: {fileID: 0}
+    - target: {fileID: 7226530999681498644, guid: 8ab193d25384270479b3192f79d10c53,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7226530999681498650, guid: 8ab193d25384270479b3192f79d10c53,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7226531001065899293, guid: 8ab193d25384270479b3192f79d10c53,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14879,16 +14942,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226530999681498644, guid: 8ab193d25384270479b3192f79d10c53,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7226530999681498650, guid: 8ab193d25384270479b3192f79d10c53,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ab193d25384270479b3192f79d10c53, type: 3}
@@ -15129,6 +15182,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.54212856, y: 1.9492621}
   m_EdgeRadius: 0
+--- !u!114 &1636372397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1636372394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e35240a3f1aa0649a033739ec3e5d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationArr: []
+  animator: {fileID: 0}
 --- !u!1 &1649448191
 GameObject:
   m_ObjectHideFlags: 0

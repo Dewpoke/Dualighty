@@ -41,7 +41,7 @@ public class DarkOrbController : OrbController
         }
         else
         {//Temp fix for slowing down orb aaaand now also used for the glow
-            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.deltaTime;
             darkGlow.SetActive(false);
         }
 

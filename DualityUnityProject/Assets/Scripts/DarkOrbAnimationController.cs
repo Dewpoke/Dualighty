@@ -16,7 +16,8 @@ public class DarkOrbAnimationController : MonoBehaviour
     {
         darkPlayerScript = this.GetComponent<DarkOrbController>();
 
-        animator = this.transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
+       // animator = this.transform.GetChild(0).transform.GetChild(0).GetComponent<Animator>();
+        animator = this.transform.GetChild(0).GetComponent<Animator>();
     }
 
     // Update is called once per frame

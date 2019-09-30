@@ -41,7 +41,7 @@ public class LightOrbController : OrbController
         }
         else
         {//temp fix to slow down orb aaaand also the glow
-            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.deltaTime;
             lightGlow.SetActive(false);
         }
         //RoundColliderLeftWallDetection();

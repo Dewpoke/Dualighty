@@ -16,7 +16,8 @@ public class LightOrbAnimationController : MonoBehaviour
     {
         lightPlayerScript = this.GetComponent<LightOrbController>();
 
-        animator = this.transform.GetChild(0).transform.GetChild(1).GetComponent<Animator>();
+        //animator = this.transform.GetChild(0).transform.GetChild(1).GetComponent<Animator>();
+        animator = this.transform.GetChild(1).GetComponent<Animator>();
     }
 
     // Update is called once per frame
