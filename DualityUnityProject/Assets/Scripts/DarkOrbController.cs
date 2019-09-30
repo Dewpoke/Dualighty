@@ -457,6 +457,26 @@ public class DarkOrbController : OrbController
         yVelocity = 0;
     }
 
+    public bool getIsControlsActive()
+    {
+        return isControlsActive;
+    }
+
+    public float GetXSpeed()
+    {
+        return xVelocity;
+    }
+
+    public float GetYSpeed()
+    {
+        return yVelocity;
+    }
+
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Interactable")

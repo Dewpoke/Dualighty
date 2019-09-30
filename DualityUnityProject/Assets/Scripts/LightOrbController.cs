@@ -452,7 +452,22 @@ public class LightOrbController : OrbController
         return isControlsActive;
     }
 
-    private void OnCollissionStay2D(Collider2D collision)
+    public float GetXSpeed()
+    {
+        return xVelocity;
+    }
+
+    public float GetYSpeed()
+    {
+        return yVelocity;
+    }
+
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
+    }
+
+private void OnCollissionStay2D(Collider2D collision)
     {
         if (collision.tag == "Interactable")
         {
@@ -465,5 +480,7 @@ public class LightOrbController : OrbController
             }
         }
     }
+
+
 
 }

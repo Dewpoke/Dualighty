@@ -95,4 +95,11 @@ public class PlatformChangeScript : MonoBehaviour
             return false;
         }
     }
+
+    public bool getIsActive()
+    {
+        return isActive;
+    }
 }
+
+
