@@ -11223,13 +11223,13 @@ Transform:
   - {fileID: 789551255}
   - {fileID: 61008523}
   - {fileID: 996496466}
-  - {fileID: 1274906906}
   - {fileID: 248692750}
   - {fileID: 1522366162}
   - {fileID: 107139848}
+  - {fileID: 1274906906}
   - {fileID: 1715946573}
-  - {fileID: 98956836}
   - {fileID: 205253969}
+  - {fileID: 98956836}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11418,6 +11418,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2386953321605786693, guid: 4a8ee4980a359b842b8b78bac541cabb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2386953321605786694, guid: 4a8ee4980a359b842b8b78bac541cabb,
         type: 3}
