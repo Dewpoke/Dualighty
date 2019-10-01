@@ -10,7 +10,7 @@ public class Menu : MonoBehaviour
     public GameObject options;
    public void Play()
     {
-        SceneManager.LoadScene("LevelOne");
+        SceneManager.LoadScene("CutScene");
     }
     public void Exit()
     {
