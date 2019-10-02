@@ -29,6 +29,7 @@ public class LeafDoorAnimationScript : MonoBehaviour
             print("ping");
             hasBeenTriggered = true;
             leafDoor.Play();
+            SoundEffects.Instance.PlayOneShot(SoundEffects.Instance.passageDoor);
         }
     }
 
