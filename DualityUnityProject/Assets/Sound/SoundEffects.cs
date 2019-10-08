@@ -10,11 +10,11 @@ public class SoundEffects : MonoBehaviour
    // public AudioClip flapWings;
     public AudioClip passageDoor;
     
-<<<<<<< HEAD:DualityUnityProject/Assets/Sound/SoundEffects.cs
+
    AudioSource source;
-=======
-     AudioSource source;
->>>>>>> 6ead6442d7218a16478a7ec3f00a10a4ffea7852:DualityUnityProject/Assets/Sound/SoundEffects.cs
+
+    
+
     void Start()
     {
         if(Instance == null)
@@ -31,12 +31,7 @@ public class SoundEffects : MonoBehaviour
 
    public void PlayOneShot(AudioClip clip)
     {
-<<<<<<< HEAD:DualityUnityProject/Assets/Sound/SoundEffects.cs
-       // source.PlayOneShot(openDoor);
-=======
-        //source.PlayOneShot(openDoor);
->>>>>>> 6ead6442d7218a16478a7ec3f00a10a4ffea7852:DualityUnityProject/Assets/Sound/SoundEffects.cs
-        //source.PlayOneShot(flapWings);
+
         source.PlayOneShot(passageDoor);
     }
 }

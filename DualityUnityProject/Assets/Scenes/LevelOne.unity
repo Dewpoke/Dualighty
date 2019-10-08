@@ -9840,8 +9840,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Hello. You can use "A and D" to move. Use "Spacebar" to Jump and "Q" to
-    switch between the characters
+  m_Text: ' Use "Spacebar" to Jump and "Q" to switch between the characters. '
 --- !u!222 &957265114
 CanvasRenderer:
   m_ObjectHideFlags: 0
