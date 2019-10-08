@@ -12,12 +12,10 @@ public class ButtonScript : MonoBehaviour
 
     GameObject playerTrigger;//The player object triggering the button
 
-    public GameObject DoorCollider;
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -81,10 +79,8 @@ public class ButtonScript : MonoBehaviour
 
         if (hit.collider != null && hit.collider.tag == "Player")
         {
-            Destroy(DoorCollider);
             //print(hit.collider.gameObject);
             return true;
-            
         }
         else
         {

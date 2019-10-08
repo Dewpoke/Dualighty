@@ -12,13 +12,12 @@ public class DarkOrbController : OrbController
     {
         //rb = this.GetComponent<Rigidbody2D>();
 
-        jumpSpeed = 15;
-
+        /*jumpSpeed = 15;
         gravity = 5f;
         moveAcceleration = 5f;
         stopDeceleration = 6f;
         maxMoveSpeed = 5f;
-        maxFallSpeed = 10f;
+        maxFallSpeed = 10f;*/
 
         xVelocity = 0;
         yVelocity = 0;
@@ -75,7 +74,7 @@ public class DarkOrbController : OrbController
         }
         else
         {
-            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.deltaTime;
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -170,6 +169,10 @@ public class DarkOrbController : OrbController
         if (yVelocity > -maxFallSpeed)
         {
             yVelocity = yVelocity - gravity * gravity * Time.fixedDeltaTime;
+        }
+        else//ensure the player cannot fall faster than allowed
+        {
+            yVelocity = -maxFallSpeed;
         }
 
         StepUpCheck();
@@ -291,8 +294,8 @@ public class DarkOrbController : OrbController
 
     bool BoxColliderFloorDetection()
     {
-        float startValue = -0.5f;
-        float endValue = 0.5f;
+        float startValue = -0.45f;
+        float endValue = 0.45f;
         int numOfRays = 10;
         bool returnAnswer = false;
 
@@ -329,7 +332,7 @@ public class DarkOrbController : OrbController
         RaycastHit2D hit;
         for (int i = 0; i < numOfRays + 1; i++)
         {
-            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(startValue + (endValue - startValue) * i / numOfRays, 0.5f);
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(startValue + (endValue - startValue) * i / numOfRays, 1.8f);
             //rayStartPos = rayStartPos.normalized * this.transform.lossyScale.magnitude/2;
             //print(rayStartPos);
             hit = Physics2D.Raycast(rayStartPos, Vector2.up, 0.05f, platformLayerMask);
@@ -350,8 +353,8 @@ public class DarkOrbController : OrbController
     bool BoxColliderLeftWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 0.4f;
-        int numOfRays = 10;
+        float endValue = 1.7f;
+        int numOfRays = 15;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
@@ -378,8 +381,8 @@ public class DarkOrbController : OrbController
     bool BoxColliderRightWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 0.4f;
-        int numOfRays = 10;
+        float endValue = 1.7f;
+        int numOfRays = 15;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
