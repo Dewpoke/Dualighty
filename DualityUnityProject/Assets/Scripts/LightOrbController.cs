@@ -420,7 +420,7 @@ public class LightOrbController : OrbController
     bool BoxColliderLeftWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 1.6f;
+        float endValue = 1.1f;
         int numOfRays = 15;
         bool returnAnswer = false;
 
@@ -448,7 +448,7 @@ public class LightOrbController : OrbController
     bool BoxColliderRightWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 1.6f;
+        float endValue = 1.1f;
         int numOfRays = 15;
         bool returnAnswer = false;
 
