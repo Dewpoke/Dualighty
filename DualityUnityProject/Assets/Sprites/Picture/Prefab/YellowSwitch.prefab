@@ -102,6 +102,7 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+  m_Bones: []
   m_BoneTransforms: []
 --- !u!33 &5806787933609824834
 MeshFilter:
@@ -110,7 +111,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5806787933609824847}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: -5001093429614996821, guid: 3231e90dff904a0408fa6e66a3b33a0a, type: 2}
 --- !u!23 &5806787933609824833
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -193,6 +194,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Length: 1
+  m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 0}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &5806787934537442075
@@ -245,6 +247,7 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+  m_Bones: []
   m_BoneTransforms:
   - {fileID: 5806787934350619591}
 --- !u!137 &5806787934537442077
@@ -288,7 +291,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: -5243771352912861950, guid: 05107ba3f9c1d2d47835e7ffc97f2f13, type: 2}
   m_Bones:
   - {fileID: 5806787934350619591}
   m_BlendShapeWeights: []
