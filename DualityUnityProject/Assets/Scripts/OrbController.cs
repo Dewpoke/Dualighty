@@ -13,11 +13,23 @@ public class OrbController : MonoBehaviour
     protected LayerMask layerMask;
     public bool isGrounded = false;
 
+    [SerializeField]
+    [Range(0, 10)]
     protected float gravity = 5f;
+    [SerializeField]
+    [Range(0, 25)]
     protected float moveAcceleration = 3f;
+    [SerializeField]
+    [Range(0, 20)]
     protected float jumpSpeed = 8f;
+    [SerializeField]
+    [Range(0, 20)]
     protected float stopDeceleration = 6f;
+    [SerializeField]
+    [Range(0, 20)]
     protected float maxMoveSpeed = 5f;
+    [SerializeField]
+    [Range(0, 20)]
     protected float maxFallSpeed = 5f;
 
     protected float xVelocity = 0;

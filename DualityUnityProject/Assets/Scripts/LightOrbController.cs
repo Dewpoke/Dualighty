@@ -5,6 +5,12 @@ using UnityEngine;
 public class LightOrbController : OrbController
 {
     //Rigidbody2D rb;
+
+    [SerializeField]
+    [Range(0, 20)]
+    float glideSpeed;
+
+
     public GameObject lightGlow;
 
     // Start is called before the first frame update
@@ -12,13 +18,12 @@ public class LightOrbController : OrbController
     {
         //rb = this.GetComponent<Rigidbody2D>();
 
-        jumpSpeed = 15;
-
+        /*jumpSpeed = 15;
         gravity = 5f;
         moveAcceleration = 5f;
         stopDeceleration = 6f;
         maxMoveSpeed = 5f;
-        maxFallSpeed = 5f;
+        maxFallSpeed = 5f;*/
 
         xVelocity = 0;
         yVelocity = 0;
@@ -41,7 +46,6 @@ public class LightOrbController : OrbController
         }
         else
         {//temp fix to slow down orb aaaand also the glow
-            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
             lightGlow.SetActive(false);
         }
         //RoundColliderLeftWallDetection();
@@ -58,11 +62,9 @@ public class LightOrbController : OrbController
 
     void LightOrbControls()
     {
-
-
         if (Input.GetKey(KeyCode.A))
         {
-            if (xVelocity > -maxMoveSpeed)
+            if (xVelocity > -maxMoveSpeed)//If not moving at max PLAYERSPEED
             {
                 xVelocity -= moveAcceleration * Time.deltaTime;
                 //print("Moving Left");
@@ -71,15 +73,28 @@ public class LightOrbController : OrbController
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            if (xVelocity < maxMoveSpeed)
+            if (xVelocity < maxMoveSpeed) //If not moving at max PLAYERSPEED
             {
                 xVelocity += moveAcceleration * Time.deltaTime;
                 //print("Moving right");
             }
         }
-        else
+        else //If not moving, slow down
         {
-            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            if (xVelocity > 0)//if moving right
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.deltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, 0, 1000);
+            }
+            else if (xVelocity < 0)//if moving left
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.deltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, -1000, 0);
+            }
+            else
+            {
+                xVelocity = 0;
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -87,6 +102,17 @@ public class LightOrbController : OrbController
             {
                 yVelocity = jumpSpeed;
                 print("Jump!");
+            }
+        }
+        if (yVelocity < 0)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                maxFallSpeed = glideSpeed;
+            }
+            else
+            {
+                maxFallSpeed = 10;
             }
         }
         
@@ -179,16 +205,40 @@ public class LightOrbController : OrbController
             }
         }
 
+        if (!isControlsActive)//slow down
+        {
+            if (xVelocity > 0)//if moving right
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.fixedDeltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, 0, 1000);
+            }
+            else if (xVelocity < 0)//if moving left
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.fixedDeltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, -1000, 0);
+            }
+            else
+            {
+                xVelocity = 0;
+            }
+        }
+
         this.transform.position = this.transform.position + new Vector3(xVelocity * Time.deltaTime, yVelocity * Time.deltaTime, 0);
-        if (yVelocity > -maxFallSpeed) {
+
+        if (yVelocity > -maxFallSpeed)
+        {
             if (yVelocity > 0)//if moving upwards
             {
                 yVelocity = yVelocity - gravity * gravity * Time.fixedDeltaTime;
             }
             else //if moving downwards
             {
-                yVelocity = yVelocity - gravity * Time.fixedDeltaTime;
+                yVelocity = yVelocity - gravity * gravity * Time.fixedDeltaTime;
             }
+        }
+        else//ensure the player cannot fall faster than allowed
+        {
+            yVelocity = -maxFallSpeed;
         }
     }
 
@@ -312,8 +362,8 @@ public class LightOrbController : OrbController
 
     bool BoxColliderFloorDetection()
     {
-        float startValue = -0.5f;
-        float endValue = 0.5f;
+        float startValue = -0.45f;
+        float endValue = 0.45f;
         int numOfRays = 10;
         bool returnAnswer = false;
 
@@ -329,7 +379,7 @@ public class LightOrbController : OrbController
             if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
             {
                 hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 1f, platformLayerMask);
-                if (hit.collider.tag != "LightWall")
+                if (hit.collider.tag != "LightWall" && !BoxColliderRoofDetection())
                     this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
                 returnAnswer = true;
                 return returnAnswer;
@@ -342,15 +392,15 @@ public class LightOrbController : OrbController
 
     bool BoxColliderRoofDetection()
     {
-        float startValue = -0.5f;
-        float endValue = 0.5f;
+        float startValue = -0.45f;
+        float endValue = 0.45f;
         int numOfRays = 10;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
         for (int i = 0; i < numOfRays + 1; i++)
         {
-            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(startValue + (endValue - startValue) * i / numOfRays, 0.5f);
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(startValue + (endValue - startValue) * i / numOfRays, 1.1f);
             //rayStartPos = rayStartPos.normalized * this.transform.lossyScale.magnitude/2;
             //print(rayStartPos);
             hit = Physics2D.Raycast(rayStartPos, Vector2.up, 0.05f, platformLayerMask);
@@ -370,8 +420,8 @@ public class LightOrbController : OrbController
     bool BoxColliderLeftWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 0.4f;
-        int numOfRays = 10;
+        float endValue = 1.1f;
+        int numOfRays = 15;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
@@ -398,8 +448,8 @@ public class LightOrbController : OrbController
     bool BoxColliderRightWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 0.4f;
-        int numOfRays = 10;
+        float endValue = 1.1f;
+        int numOfRays = 15;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
@@ -452,7 +502,22 @@ public class LightOrbController : OrbController
         return isControlsActive;
     }
 
-    private void OnCollissionStay2D(Collider2D collision)
+    public float GetXSpeed()
+    {
+        return xVelocity;
+    }
+
+    public float GetYSpeed()
+    {
+        return yVelocity;
+    }
+
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
+    }
+
+private void OnCollissionStay2D(Collider2D collision)
     {
         if (collision.tag == "Interactable")
         {
@@ -465,5 +530,7 @@ public class LightOrbController : OrbController
             }
         }
     }
+
+
 
 }
