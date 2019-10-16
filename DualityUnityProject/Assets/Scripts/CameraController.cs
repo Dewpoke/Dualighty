@@ -37,8 +37,8 @@ public class CameraController : MonoBehaviour
     void FollowPlayer()
     {
         if (isFollowingLight)
-            this.transform.position = Vector3.Lerp(this.transform.position, lightPlayerOrb.transform.position + Vector3.back * 50, 0.2f);
+            this.transform.position = Vector3.Lerp(this.transform.position, lightPlayerOrb.transform.position + new Vector3(0, 2.5f, -50), 0.2f);
         else
-            this.transform.position = Vector3.Lerp(this.transform.position,  darkPlayerOrb.transform.position + Vector3.back * 50, 0.2f);
+            this.transform.position = Vector3.Lerp(this.transform.position,  darkPlayerOrb.transform.position + new Vector3(0, 2.5f, -50), 0.2f);
     }
 }

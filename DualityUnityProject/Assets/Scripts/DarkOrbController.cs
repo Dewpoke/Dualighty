@@ -7,21 +7,25 @@ public class DarkOrbController : OrbController
     //Rigidbody2D rb;
     public GameObject darkGlow;
 
+    public bool isCharging = false;
+
+    float standardMoveSpeed;
     // Start is called before the first frame update
     void Start()
     {
         //rb = this.GetComponent<Rigidbody2D>();
 
-        jumpSpeed = 15;
-
+        /*jumpSpeed = 15;
         gravity = 5f;
         moveAcceleration = 5f;
         stopDeceleration = 6f;
         maxMoveSpeed = 5f;
-        maxFallSpeed = 10f;
+        maxFallSpeed = 10f;*/
 
         xVelocity = 0;
         yVelocity = 0;
+
+        standardMoveSpeed = maxMoveSpeed;
     }
 
     // Update is called once per frame
@@ -41,7 +45,6 @@ public class DarkOrbController : OrbController
         }
         else
         {//Temp fix for slowing down orb aaaand now also used for the glow
-            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
             darkGlow.SetActive(false);
         }
 
@@ -54,8 +57,6 @@ public class DarkOrbController : OrbController
 
     void DarkOrbControls()
     {
-
-
         if (Input.GetKey(KeyCode.A))
         {
             if (xVelocity > -maxMoveSpeed)
@@ -73,9 +74,22 @@ public class DarkOrbController : OrbController
                 //print("Moving right");
             }
         }
-        else
+        else //Slow down if nothing is held
         {
-            xVelocity -= Mathf.Sign(xVelocity) * moveAcceleration * Time.deltaTime;
+            if (xVelocity > 0)//if moving right
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.deltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, 0, 1000);
+            }
+            else if (xVelocity < 0)//if moving left
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.deltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, -1000, 0);
+            }
+            else
+            {
+                xVelocity = 0;
+            }
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -84,6 +98,15 @@ public class DarkOrbController : OrbController
                 yVelocity = jumpSpeed;
                 print("Jump!");
             }
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            maxMoveSpeed = standardMoveSpeed * 1.5f;
+        }
+        else
+        {
+            maxMoveSpeed = standardMoveSpeed;
         }
 
     }
@@ -122,11 +145,11 @@ public class DarkOrbController : OrbController
 
     void PhysicsStuff()
     {
+        //bool isTouchingRoof = RoundColliderRoofDetection();
+        bool isTouchingRoof = BoxColliderRoofDetection();
+
         //bool isTouchingFloor = RoundColliderFloorDetection();
         bool isTouchingFloor = BoxColliderFloorDetection();
-
-        //bool isTouchingRoof = RoundColliderRoofDetection();
-        bool isTouchingRoof = BoxColliderRoofDetection(); ;
 
         //bool isTouchingRightWall = RoundColliderRightWallDetection();
         bool isTouchingRightWall = BoxColliderRightWallDetection();
@@ -166,10 +189,32 @@ public class DarkOrbController : OrbController
             }
         }
 
+        if (!isControlsActive)//slow down
+        {
+            if (xVelocity > 0)//if moving right
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.fixedDeltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, 0, 1000);
+            }
+            else if (xVelocity < 0)//if moving left
+            {
+                xVelocity -= Mathf.Sign(xVelocity) * stopDeceleration * Time.fixedDeltaTime;
+                xVelocity = Mathf.Clamp(xVelocity, -1000, 0);
+            }
+            else
+            {
+                xVelocity = 0;
+            }
+        }
+
         this.transform.position = this.transform.position + new Vector3(xVelocity * Time.deltaTime, yVelocity * Time.deltaTime, 0);
         if (yVelocity > -maxFallSpeed)
         {
             yVelocity = yVelocity - gravity * gravity * Time.fixedDeltaTime;
+        }
+        else//ensure the player cannot fall faster than allowed
+        {
+            yVelocity = -maxFallSpeed;
         }
 
         StepUpCheck();
@@ -291,8 +336,8 @@ public class DarkOrbController : OrbController
 
     bool BoxColliderFloorDetection()
     {
-        float startValue = -0.5f;
-        float endValue = 0.5f;
+        float startValue = -0.45f;
+        float endValue = 0.45f;
         int numOfRays = 10;
         bool returnAnswer = false;
 
@@ -308,8 +353,8 @@ public class DarkOrbController : OrbController
             if (hit.collider != null && hit.collider.tag != "DarkWall") //If it hits something that isn't a dark wall
             {
                 //print(hit.collider.name);
-                hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 0.6f, platformLayerMask);
-                if (hit.collider.tag != "DarkWall")
+                hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 0.6f, platformLayerMask); //Check the point at which the floor is hit
+                if (hit.collider.tag != "DarkWall" && !BoxColliderRoofDetection())//If it hits the platform AND the character is not touching the roof
                     this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
                 return true;
                 //yVelocity = 0;
@@ -321,15 +366,15 @@ public class DarkOrbController : OrbController
 
     bool BoxColliderRoofDetection()
     {
-        float startValue = -0.5f;
-        float endValue = 0.5f;
+        float startValue = -0.45f;
+        float endValue = 0.45f;
         int numOfRays = 10;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
         for (int i = 0; i < numOfRays + 1; i++)
         {
-            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(startValue + (endValue - startValue) * i / numOfRays, 0.5f);
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(startValue + (endValue - startValue) * i / numOfRays, 1.1f);
             //rayStartPos = rayStartPos.normalized * this.transform.lossyScale.magnitude/2;
             //print(rayStartPos);
             hit = Physics2D.Raycast(rayStartPos, Vector2.up, 0.05f, platformLayerMask);
@@ -350,8 +395,8 @@ public class DarkOrbController : OrbController
     bool BoxColliderLeftWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 0.4f;
-        int numOfRays = 10;
+        float endValue = 1.1f;
+        int numOfRays = 15;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
@@ -378,8 +423,8 @@ public class DarkOrbController : OrbController
     bool BoxColliderRightWallDetection()
     {
         float startValue = -0.4f;
-        float endValue = 0.4f;
-        int numOfRays = 10;
+        float endValue = 1.1f;
+        int numOfRays = 15;
         bool returnAnswer = false;
 
         RaycastHit2D hit;
@@ -407,7 +452,7 @@ public class DarkOrbController : OrbController
     {
         if (xVelocity > 0.2f)//if moving right
         {
-            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(0.48f, 0f);
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(0.45f, 0f);
             RaycastHit2D hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.5f, platformLayerMask);
             Debug.DrawLine(rayStartPos, rayStartPos + Vector2.down * 0.5f, Color.white,0.01f);
 
@@ -419,7 +464,7 @@ public class DarkOrbController : OrbController
         }
         else if (xVelocity < -0.2f)//if moving left
         {
-            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(-0.48f, 0f);
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(-0.45f, 0f);
             RaycastHit2D hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.5f, platformLayerMask);
             Debug.DrawLine(rayStartPos, rayStartPos + Vector2.down * 0.5f, Color.white, 0.01f);
 
@@ -455,6 +500,26 @@ public class DarkOrbController : OrbController
     {
         xVelocity = 0;
         yVelocity = 0;
+    }
+
+    public bool getIsControlsActive()
+    {
+        return isControlsActive;
+    }
+
+    public float GetXSpeed()
+    {
+        return xVelocity;
+    }
+
+    public float GetYSpeed()
+    {
+        return yVelocity;
+    }
+
+    public bool GetIsGrounded()
+    {
+        return isGrounded;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
