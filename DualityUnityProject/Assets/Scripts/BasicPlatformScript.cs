@@ -64,6 +64,10 @@ public class BasicPlatformScript : MonoBehaviour
             case 0: //MoveToEnd mode
                 if (isActive)//If ON
                 {
+                    if (currNode < 0)
+                    {
+                        currNode++;
+                    }
                     MoveToEnd();
 
                 }
@@ -71,6 +75,10 @@ public class BasicPlatformScript : MonoBehaviour
                 {//If OFF
                     if (isOffReverse) //If in Reverse-active mode
                     {
+                        if (currNode >= nodePositionsArr.Length - 1)
+                        {
+                            currNode--;
+                        }
                         MoveToStart();
                     }
                     else
@@ -148,9 +156,16 @@ public class BasicPlatformScript : MonoBehaviour
                         }
                         MoveToStartLoop();
                     }
+                    else
+                    {
+                        moveSpeedAndDir = Vector3.zero;
+                    }
                 }
                 break;
         }
+
+        //print(moveSpeedAndDir);
+        //print(isAtEnd);
     }
 
     bool CheckIsActive() //Check if the inputs return an 'ON' or 'OFF'
@@ -190,6 +205,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode].transform.position, nodePositionsArr[currNode + 1].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[currNode + 1].transform.position - nodePositionsArr[currNode].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0) //if at the next node
             {
                 currNode++;  
@@ -198,6 +214,7 @@ public class BasicPlatformScript : MonoBehaviour
         else
         {
             isAtEnd = true;
+            moveSpeedAndDir = Vector3.zero;
         }
 
     }
@@ -214,6 +231,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode + 1].transform.position, nodePositionsArr[currNode].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[currNode].transform.position - nodePositionsArr[currNode + 1].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0)//If at the prev node
             {
                 currNode--;
@@ -222,6 +240,7 @@ public class BasicPlatformScript : MonoBehaviour
         else
         {
             isAtEnd = true;
+            moveSpeedAndDir = Vector3.zero;
         }
     }
 
@@ -235,6 +254,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode].transform.position, nodePositionsArr[currNode + 1].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[currNode + 1].transform.position - nodePositionsArr[currNode].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0) //if at the next node
             {
                 currNode++;
@@ -248,6 +268,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode].transform.position, nodePositionsArr[0].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[0].transform.position - nodePositionsArr[currNode].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0) //if at the next node
             {
                 currNode = 0;
@@ -258,7 +279,7 @@ public class BasicPlatformScript : MonoBehaviour
 
     void MoveToStartLoop()
     {
-        print(currNode);
+        //print(currNode);
         if (currNode + 1 > 0) //If the current node is not the last node (ie. if not at the end)
         {
             float distanceToNextPoint = (this.transform.GetChild(0).transform.position - nodePositionsArr[currNode].transform.position).magnitude;//The distance from the platform to the current node
@@ -267,6 +288,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode + 1].transform.position, nodePositionsArr[currNode].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[currNode].transform.position - nodePositionsArr[currNode + 1].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0)//If at the prev node
             {
                 currNode--;
@@ -280,6 +302,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[0].transform.position, nodePositionsArr[nodePositionsArr.Length - 1].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[nodePositionsArr.Length - 1].transform.position - nodePositionsArr[0].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0)//If at the prev node
             {
                 currNode = nodePositionsArr.Length-2;
@@ -287,9 +310,9 @@ public class BasicPlatformScript : MonoBehaviour
         }
     }
 
-    /*void CheckIsActive()//Make work with multiple inputs
+    public Vector3 GetMoveSpeedAndDir()
     {
-        isActive = (inputButtonsArr[0].GetComponent<ButtonScript>().GetIsActive());
+        return moveSpeedAndDir;
     }
-    */
+    
 }
