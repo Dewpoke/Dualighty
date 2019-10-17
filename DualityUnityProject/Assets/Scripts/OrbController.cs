@@ -20,7 +20,7 @@ public class OrbController : MonoBehaviour
     [Range(0, 25)]
     protected float moveAcceleration = 3f;
     [SerializeField]
-    [Range(0, 20)]
+    [Range(0, 30)]
     protected float jumpSpeed = 8f;
     [SerializeField]
     [Range(0, 20)]
@@ -36,6 +36,7 @@ public class OrbController : MonoBehaviour
     protected float yVelocity = 0;
 
     protected float slowPenalty = 0.65f;
+
 
     
 }

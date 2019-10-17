@@ -378,8 +378,17 @@ public class LightOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
             {
+                BasicPlatformScript script = hit.collider.GetComponentInParent<BasicPlatformScript>();
+                if (script != null) //If the floor is actually a moving platform, follow along
+                {
+                    print(script.GetMoveSpeedAndDir());
+                    this.transform.position += script.GetMoveSpeedAndDir() * Time.fixedDeltaTime;
+                    //xVthiselocity += script.GetMoveSpeedAndDir().x * Time.fixedDeltaTime;
+                    //yVelocity += script.GetMoveSpeedAndDir().y * Time.fixedDeltaTime;
+                }
+
                 hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 1f, platformLayerMask);
-                if (hit.collider.tag != "LightWall" && !BoxColliderRoofDetection())
+                if (hit.collider.tag != "LightWall" && !BoxColliderRoofDetection())//If this doesn't hit a roof, move up slightly
                     this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
                 returnAnswer = true;
                 return returnAnswer;

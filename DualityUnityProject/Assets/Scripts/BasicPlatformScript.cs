@@ -11,7 +11,7 @@ public class BasicPlatformScript : MonoBehaviour
     [SerializeField]
     bool isActive; //If the overall input is 'ON'
 
-    public int operatingMode; //0 is move to the end. 1 is move back and forth.
+    public int operatingMode; //0 is move to the end. 1 is move back and forth. 2 is move from last node to first node (loop)
     public bool isOffReverse; //If the platform must act in reverse if no signal is given, or if it must stop moving
 
     bool isAtEnd = false;
@@ -23,6 +23,8 @@ public class BasicPlatformScript : MonoBehaviour
 
     public float moveSpeed = 3; //How fast the platform moves
     public float pauseTime = 0; // How long the platform must wait at each node
+
+    Vector3 moveSpeedAndDir;
 
     void Start()
     {
@@ -62,6 +64,10 @@ public class BasicPlatformScript : MonoBehaviour
             case 0: //MoveToEnd mode
                 if (isActive)//If ON
                 {
+                    if (currNode < 0)
+                    {
+                        currNode++;
+                    }
                     MoveToEnd();
 
                 }
@@ -69,7 +75,15 @@ public class BasicPlatformScript : MonoBehaviour
                 {//If OFF
                     if (isOffReverse) //If in Reverse-active mode
                     {
+                        if (currNode >= nodePositionsArr.Length - 1)
+                        {
+                            currNode--;
+                        }
                         MoveToStart();
+                    }
+                    else
+                    {
+                        moveSpeedAndDir = Vector3.zero;
                     }
                 }
                 break;
@@ -96,14 +110,62 @@ public class BasicPlatformScript : MonoBehaviour
                     }
                 }
                 else
+                {//If off
+                    if (isOffReverse)
+                    {
+                        if (!isMovingForward)
+                        {
+                            MoveToEnd();
+                            if (isAtEnd)
+                            {
+                                isMovingForward = !isMovingForward;
+                                currNode--;
+                            }
+                        }
+                        else
+                        {
+                            MoveToStart();
+                            if (isAtEnd)
+                            {
+                                isMovingForward = !isMovingForward;
+                                currNode++;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        moveSpeedAndDir = Vector3.zero;
+                    }
+                }
+                break;
+            case 2: //Loop to beginning
+                if (isActive)
+                {
+                    if (currNode < 0)
+                    {
+                        currNode = nodePositionsArr.Length - 1;
+                    }
+                    MoveToEndLoop();
+                }
+                else
                 {
                     if (isOffReverse)
                     {
-                        
+                        if (currNode >= nodePositionsArr.Length - 1){
+                            currNode = -1;
+                        }
+                        MoveToStartLoop();
+                    }
+                    else
+                    {
+                        moveSpeedAndDir = Vector3.zero;
                     }
                 }
                 break;
         }
+
+        //print(moveSpeedAndDir);
+        //print(isAtEnd);
     }
 
     bool CheckIsActive() //Check if the inputs return an 'ON' or 'OFF'
@@ -143,6 +205,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode].transform.position, nodePositionsArr[currNode + 1].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[currNode + 1].transform.position - nodePositionsArr[currNode].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0) //if at the next node
             {
                 currNode++;  
@@ -151,6 +214,7 @@ public class BasicPlatformScript : MonoBehaviour
         else
         {
             isAtEnd = true;
+            moveSpeedAndDir = Vector3.zero;
         }
 
     }
@@ -167,6 +231,7 @@ public class BasicPlatformScript : MonoBehaviour
             perc = 1 - perc; //As we're using the distance left, we need to invert 
             this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode + 1].transform.position, nodePositionsArr[currNode].transform.position, perc); //Move the platform
 
+            moveSpeedAndDir = (nodePositionsArr[currNode].transform.position - nodePositionsArr[currNode + 1].transform.position).normalized * moveSpeed;
             if (distanceToNextPoint < 0)//If at the prev node
             {
                 currNode--;
@@ -175,12 +240,79 @@ public class BasicPlatformScript : MonoBehaviour
         else
         {
             isAtEnd = true;
+            moveSpeedAndDir = Vector3.zero;
         }
     }
 
-    /*void CheckIsActive()//Make work with multiple inputs
+    void MoveToEndLoop()
     {
-        isActive = (inputButtonsArr[0].GetComponent<ButtonScript>().GetIsActive());
+        if (currNode + 1 < nodePositionsArr.Length) //If the current node is not the last node (ie. if not at the end)
+        {
+            float distanceToNextPoint = (this.transform.GetChild(0).transform.position - nodePositionsArr[currNode + 1].transform.position).magnitude;//The distance from the platform to the next node
+            distanceToNextPoint -= moveSpeed * Time.fixedDeltaTime; //The distance left after moving a bit
+            float perc = distanceToNextPoint / (nodePositionsArr[currNode].transform.position - nodePositionsArr[currNode + 1].transform.position).magnitude; //The distance left over the distance from point A to point B ie. The new distance as a percentage between the two points
+            perc = 1 - perc; //As we're using the distance left, we need to invert 
+            this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode].transform.position, nodePositionsArr[currNode + 1].transform.position, perc); //Move the platform
+
+            moveSpeedAndDir = (nodePositionsArr[currNode + 1].transform.position - nodePositionsArr[currNode].transform.position).normalized * moveSpeed;
+            if (distanceToNextPoint < 0) //if at the next node
+            {
+                currNode++;
+            }
+        }
+        else
+        {//force it to go from the last node to the first
+            float distanceToNextPoint = (this.transform.GetChild(0).transform.position - nodePositionsArr[0].transform.position).magnitude;//The distance from the platform to the next node
+            distanceToNextPoint -= moveSpeed * Time.fixedDeltaTime; //The distance left after moving a bit
+            float perc = distanceToNextPoint / (nodePositionsArr[currNode].transform.position - nodePositionsArr[0].transform.position).magnitude; //The distance left over the distance from point A to point B ie. The new distance as a percentage between the two points
+            perc = 1 - perc; //As we're using the distance left, we need to invert 
+            this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode].transform.position, nodePositionsArr[0].transform.position, perc); //Move the platform
+
+            moveSpeedAndDir = (nodePositionsArr[0].transform.position - nodePositionsArr[currNode].transform.position).normalized * moveSpeed;
+            if (distanceToNextPoint < 0) //if at the next node
+            {
+                currNode = 0;
+            }
+        }
+
     }
-    */
+
+    void MoveToStartLoop()
+    {
+        //print(currNode);
+        if (currNode + 1 > 0) //If the current node is not the last node (ie. if not at the end)
+        {
+            float distanceToNextPoint = (this.transform.GetChild(0).transform.position - nodePositionsArr[currNode].transform.position).magnitude;//The distance from the platform to the current node
+            distanceToNextPoint -= moveSpeed * Time.fixedDeltaTime; //The distance left after moving a bit
+            float perc = distanceToNextPoint / (nodePositionsArr[currNode].transform.position - nodePositionsArr[currNode + 1].transform.position).magnitude; //The distance left over the distance from point A to point B ie. The new distance as a percentage between the two points
+            perc = 1 - perc; //As we're using the distance left, we need to invert 
+            this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[currNode + 1].transform.position, nodePositionsArr[currNode].transform.position, perc); //Move the platform
+
+            moveSpeedAndDir = (nodePositionsArr[currNode].transform.position - nodePositionsArr[currNode + 1].transform.position).normalized * moveSpeed;
+            if (distanceToNextPoint < 0)//If at the prev node
+            {
+                currNode--;
+            }
+        }
+        else
+        {
+            float distanceToNextPoint = (this.transform.GetChild(0).transform.position - nodePositionsArr[nodePositionsArr.Length - 1].transform.position).magnitude;//The distance from the platform to the current node
+            distanceToNextPoint -= moveSpeed * Time.fixedDeltaTime; //The distance left after moving a bit
+            float perc = distanceToNextPoint / (nodePositionsArr[0].transform.position - nodePositionsArr[nodePositionsArr.Length - 1].transform.position).magnitude; //The distance left over the distance from point A to point B ie. The new distance as a percentage between the two points
+            perc = 1 - perc; //As we're using the distance left, we need to invert 
+            this.transform.GetChild(0).transform.position = Vector3.Lerp(nodePositionsArr[0].transform.position, nodePositionsArr[nodePositionsArr.Length - 1].transform.position, perc); //Move the platform
+
+            moveSpeedAndDir = (nodePositionsArr[nodePositionsArr.Length - 1].transform.position - nodePositionsArr[0].transform.position).normalized * moveSpeed;
+            if (distanceToNextPoint < 0)//If at the prev node
+            {
+                currNode = nodePositionsArr.Length-2;
+            }
+        }
+    }
+
+    public Vector3 GetMoveSpeedAndDir()
+    {
+        return moveSpeedAndDir;
+    }
+    
 }
