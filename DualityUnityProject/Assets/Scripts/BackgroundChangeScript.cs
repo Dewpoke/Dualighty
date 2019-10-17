@@ -15,7 +15,7 @@ public class BackgroundChangeScript : MonoBehaviour
     public bool startLight;
     void Start()
     {
-        
+        StartCoroutine(DrawLineToConnectedButtons());  
     }
 
     // Update is called once per frame
@@ -81,6 +81,18 @@ public class BackgroundChangeScript : MonoBehaviour
                 }
             }
             return false;
+        }
+    }
+
+    IEnumerator DrawLineToConnectedButtons()
+    {
+        while (true)
+        {
+            for (int i = 0; i < inputButtonsArr.Length; i++)
+            {
+                Debug.DrawLine(this.transform.position, inputButtonsArr[i].transform.position, Color.cyan, 5);
+            }
+            yield return new WaitForSeconds(5);
         }
     }
 }

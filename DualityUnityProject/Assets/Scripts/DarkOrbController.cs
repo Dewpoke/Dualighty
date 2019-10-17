@@ -352,6 +352,15 @@ public class DarkOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "DarkWall") //If it hits something that isn't a dark wall
             {
+                BasicPlatformScript script = hit.collider.GetComponentInParent<BasicPlatformScript>();
+                if (script != null) //If the floor is actually a moving platform, follow along
+                {
+                    print(script.GetMoveSpeedAndDir());
+                    this.transform.position += script.GetMoveSpeedAndDir() * Time.fixedDeltaTime;
+                    //xVthiselocity += script.GetMoveSpeedAndDir().x * Time.fixedDeltaTime;
+                    //yVelocity += script.GetMoveSpeedAndDir().y * Time.fixedDeltaTime;
+                }
+
                 //print(hit.collider.name);
                 hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 0.6f, platformLayerMask); //Check the point at which the floor is hit
                 if (hit.collider.tag != "DarkWall" && !BoxColliderRoofDetection())//If it hits the platform AND the character is not touching the roof

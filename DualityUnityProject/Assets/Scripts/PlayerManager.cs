@@ -33,6 +33,11 @@ public class PlayerManager : MonoBehaviour
                 print("swapping");
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            RespawnPlayers();
+        }
     }
 
     void SwapPlayer() //NB: If both are inactive and canSwap == true, then both will become active. Opposite is also true
