@@ -15,6 +15,11 @@ public class PlatformChangeScript : MonoBehaviour
     public int startColour; //0 for neutral, 1 for light, 2 for dark
     public int endColour;
 
+    private void Start()
+    {
+        StartCoroutine(DrawLineToConnectedButtons());
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -99,6 +104,18 @@ public class PlatformChangeScript : MonoBehaviour
     public bool getIsActive()
     {
         return isActive;
+    }
+
+    IEnumerator DrawLineToConnectedButtons()
+    {
+        while (true)
+        {
+            for (int i = 0; i < inputButtonsArr.Length; i++)
+            {
+                Debug.DrawLine(this.transform.position, inputButtonsArr[i].transform.position, Color.blue, 5);
+            }
+            yield return new WaitForSeconds(5);
+        }
     }
 }
 

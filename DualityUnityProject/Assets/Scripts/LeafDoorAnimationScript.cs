@@ -13,11 +13,15 @@ public class LeafDoorAnimationScript : MonoBehaviour
     bool isActive; //If the overall input is 'ON'
     bool hasBeenTriggered = false;
 
+    public float delayTime = 5;
     // Start is called before the first frame update
     void Start()
     {
         leafDoor = this.GetComponent<Animation>();
         leafDoor.Stop();
+
+        //For level designing/debugging
+        StartCoroutine(DrawLineToConnectedButtons());
     }
 
     // Update is called once per frame
@@ -26,9 +30,7 @@ public class LeafDoorAnimationScript : MonoBehaviour
         isActive = CheckIsActive();
         if (!hasBeenTriggered && isActive)
         {
-            print("ping");
-            hasBeenTriggered = true;
-            leafDoor.Play();
+            StartCoroutine (DelayAndActivateAnimation());
         }
     }
 
@@ -55,6 +57,26 @@ public class LeafDoorAnimationScript : MonoBehaviour
                 }
             }
             return false;
+        }
+    }
+
+    IEnumerator DelayAndActivateAnimation()
+    {
+        hasBeenTriggered = true;
+        yield return new WaitForSeconds(delayTime);
+        print("ping");
+        leafDoor.Play();
+    }
+
+    IEnumerator DrawLineToConnectedButtons()
+    {
+        while (true)
+        {
+            for (int i = 0; i < inputButtonsArr.Length; i++)
+            {
+                Debug.DrawLine(this.transform.position, inputButtonsArr[i].transform.position, Color.green, 5);
+            }
+            yield return new WaitForSeconds(5);
         }
     }
 }
