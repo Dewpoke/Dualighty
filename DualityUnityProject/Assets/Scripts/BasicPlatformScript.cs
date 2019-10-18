@@ -32,6 +32,7 @@ public class BasicPlatformScript : MonoBehaviour
         {
             usesInputs = true;
             isActive = false;
+            StartCoroutine(DrawLineToConnectedButtons());
         }
         else
         {
@@ -39,12 +40,14 @@ public class BasicPlatformScript : MonoBehaviour
             isActive = true;
         }
 
-        nodePositionsArr = new GameObject[this.transform.childCount - 1];//Set the array size
+        nodePositionsArr = new GameObject[this.transform.childCount - 1];//Set the node array size
         for (int i = 1; i < this.transform.childCount; i++) //i starts at 1, as 0 is reserved for the moving platform
         {
             nodePositionsArr[i-1] = this.transform.GetChild(i).gameObject;
             //print(nodePositionsArr[i - 1].name);
         }
+
+        StartCoroutine(DrawLineToPlatform());
     }
 
     // Update is called once per frame
@@ -314,5 +317,25 @@ public class BasicPlatformScript : MonoBehaviour
     {
         return moveSpeedAndDir;
     }
-    
+
+    IEnumerator DrawLineToConnectedButtons()
+    {
+        while (true)
+        {
+            for (int i = 0; i < inputButtonsArr.Length; i++)
+            {
+                Debug.DrawLine(this.transform.position, inputButtonsArr[i].transform.position, Color.red, 5);
+            }
+            yield return new WaitForSeconds(5);
+        }
+    }
+
+    IEnumerator DrawLineToPlatform()
+    {
+        while (true)
+        { 
+            Debug.DrawLine(this.transform.position, this.transform.GetChild(0).position, Color.magenta, 0.2f);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
 }

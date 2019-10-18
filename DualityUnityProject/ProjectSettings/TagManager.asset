@@ -10,6 +10,7 @@ TagManager:
   - DarkBackground
   - Ice
   - Interactable
+  - CameraAreaTrigger
   layers:
   - Default
   - TransparentFX
