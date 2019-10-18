@@ -37,6 +37,8 @@ public class CameraCutsceneScript : MonoBehaviour
             print(i);
             travelPointsArr[i] = this.transform.GetChild(i + 1).gameObject;
         }
+
+        StartCoroutine(DrawLineToConnectedButtons());
     }
 
     private void Update()
@@ -119,6 +121,18 @@ public class CameraCutsceneScript : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator DrawLineToConnectedButtons()
+    {
+        while (true)
+        {
+            for (int i = 0; i < inputButtonsArr.Length; i++)
+            {
+                Debug.DrawLine(this.transform.position, inputButtonsArr[i].transform.position, Color.yellow, 5);
+            }
+            yield return new WaitForSeconds(5);
+        }
     }
 }
 

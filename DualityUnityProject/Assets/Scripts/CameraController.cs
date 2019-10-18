@@ -48,7 +48,7 @@ public class CameraController : MonoBehaviour
     {
         if (isFollowingLight)
         {
-            destinationPoint = lightPlayerOrb.transform.position + new Vector3(0, 1.5f, -50);
+            destinationPoint = lightPlayerOrb.transform.position + new Vector3(0, 2.5f, -50);
             destinationPoint += destinationPointOffset;
             this.transform.position = Vector3.Lerp(this.transform.position, destinationPoint, 0.2f);
             //this.GetComponent<Camera>().orthographicSize = Mathf.Lerp(zoom, zoom + zoomOffset, 0.2f);
@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            destinationPoint = darkPlayerOrb.transform.position + new Vector3(0, 1.5f, -50);
+            destinationPoint = darkPlayerOrb.transform.position + new Vector3(0, 2.5f, -50);
             destinationPoint += destinationPointOffset;
             this.transform.position = Vector3.Lerp(this.transform.position, destinationPoint, 0.2f);
             //this.GetComponent<Camera>().orthographicSize = Mathf.Lerp(zoom, zoom + zoomOffset, 0.2f);
