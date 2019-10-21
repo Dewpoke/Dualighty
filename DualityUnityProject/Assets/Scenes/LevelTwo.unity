@@ -33133,45 +33133,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1868192356}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1868192358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1868192357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e480a2534bab84f44979c0a48e5c0ec9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animationArr: []
-  animator: {fileID: 0}
---- !u!114 &1868192359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1868192357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7293199a6ab804387b2d8a0f33e164, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isControlsActive: 0
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
-  isGrounded: 0
-  gravity: 5
-  moveAcceleration: 25
-  jumpSpeed: 14
-  stopDeceleration: 20
-  maxMoveSpeed: 5
-  maxFallSpeed: 10
-  darkGlow: {fileID: 0}
-  isCharging: 0
 --- !u!61 &1868192360
 BoxCollider2D:
   m_ObjectHideFlags: 0
