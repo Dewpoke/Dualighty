@@ -13,6 +13,8 @@ public class LightOrbController : OrbController
 
     public GameObject lightGlow;
 
+    bool isOnMovingPlatform = false; //I hate that I have to add this
+
     // Start is called before the first frame update
     void Start()
     {
@@ -240,6 +242,8 @@ public class LightOrbController : OrbController
         {
             yVelocity = -maxFallSpeed;
         }
+
+        StepUpCheck();
     }
 
     bool RoundColliderFloorDetection()
@@ -378,16 +382,23 @@ public class LightOrbController : OrbController
 
             if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
             {
+
                 BasicPlatformScript script = hit.collider.GetComponentInParent<BasicPlatformScript>();
                 if (script != null) //If the floor is actually a moving platform, follow along
                 {
-                    print(script.GetMoveSpeedAndDir());
+                    isOnMovingPlatform = true;
+                    //print(script.GetMoveSpeedAndDir());
                     this.transform.position += script.GetMoveSpeedAndDir() * Time.fixedDeltaTime;
                     //xVthiselocity += script.GetMoveSpeedAndDir().x * Time.fixedDeltaTime;
                     //yVelocity += script.GetMoveSpeedAndDir().y * Time.fixedDeltaTime;
+
+                }
+                else
+                {
+                    isOnMovingPlatform = false;
                 }
 
-                hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 1f, platformLayerMask);
+                hit = Physics2D.Raycast(rayStartPos + Vector2.up * 0.5f, Vector2.down, 1f, platformLayerMask);//Used to stop player from clipping into floor
                 if (hit.collider.tag != "LightWall" && !BoxColliderRoofDetection())//If this doesn't hit a roof, move up slightly
                     this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
                 returnAnswer = true;
@@ -480,6 +491,35 @@ public class LightOrbController : OrbController
             }
         }
         return returnAnswer;
+    }
+
+    void StepUpCheck()
+    {
+        if (xVelocity > 0.2f)//if moving right
+        {
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(0.45f, 0f);
+            RaycastHit2D hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.5f, platformLayerMask);
+            Debug.DrawLine(rayStartPos, rayStartPos + Vector2.down * 0.5f, Color.white, 0.01f);
+
+            if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a Light wall
+            {
+                this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
+
+            }
+        }
+        else if (xVelocity < -0.2f)//if moving left
+        {
+            Vector2 rayStartPos = new Vector2(this.transform.position.x, this.transform.position.y) + new Vector2(-0.45f, 0f);
+            RaycastHit2D hit = Physics2D.Raycast(rayStartPos, Vector2.down, 0.5f, platformLayerMask);
+            Debug.DrawLine(rayStartPos, rayStartPos + Vector2.down * 0.5f, Color.white, 0.01f);
+
+            if (hit.collider != null && hit.collider.tag != "LightWall") //If it hits something that isn't a light wall
+            {
+                this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 0.5f, this.transform.position.z);
+
+            }
+        }
+
     }
 
     bool InOppositeBackgroundCheck()

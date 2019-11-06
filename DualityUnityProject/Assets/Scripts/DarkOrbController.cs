@@ -122,6 +122,10 @@ public class DarkOrbController : OrbController
                 xVelocity -= moveAcceleration * slowPenalty * Time.deltaTime;
                 //print("Moving Left");
             }
+            else
+            {
+                xVelocity += moveAcceleration * Time.deltaTime;
+            }
 
         }
         else if (Input.GetKey(KeyCode.D))
@@ -130,6 +134,10 @@ public class DarkOrbController : OrbController
             {
                 xVelocity += moveAcceleration * slowPenalty * Time.deltaTime;
                 //print("Moving right");
+            }
+            else
+            {
+                xVelocity -= moveAcceleration * Time.deltaTime;
             }
         }
         if (Input.GetKeyDown(KeyCode.Space))
