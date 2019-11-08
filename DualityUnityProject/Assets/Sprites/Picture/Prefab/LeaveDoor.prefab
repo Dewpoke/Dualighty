@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Length: 1.5
+  m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 0}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &4303925938589844086
@@ -93,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Length: 1.4000003
+  m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4303925938515999516}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &4303925938912834745
@@ -145,6 +147,7 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: -5
+  m_Bones: []
   m_BoneTransforms:
   - {fileID: 4303925940255880348}
   - {fileID: 4303925939863007401}
@@ -189,7 +192,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 113525476769741174, guid: cc9388992073b5443a5c6e27ab3d233a, type: 2}
   m_Bones:
   - {fileID: 4303925940255880348}
   - {fileID: 4303925939863007401}
@@ -250,6 +253,7 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+  m_Bones: []
   m_BoneTransforms: []
 --- !u!33 &4303925939385997351
 MeshFilter:
@@ -258,7 +262,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4303925939385997346}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: -8228892987518726119, guid: 51f649122706c7d4683e8234be38bc20, type: 2}
 --- !u!23 &4303925939385997348
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -393,6 +397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Length: 1.5
+  m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 0}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &4303925940036800096
@@ -445,6 +450,7 @@ MonoBehaviour:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
   m_SortingOrder: -1
+  m_Bones: []
   m_BoneTransforms:
   - {fileID: 4303925938589844089}
   - {fileID: 4303925938515999516}
@@ -489,7 +495,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 5841799204055115747, guid: 84590ca66a3a49f4eba5edbd13894149, type: 2}
   m_Bones:
   - {fileID: 4303925938589844089}
   - {fileID: 4303925938515999516}
@@ -545,6 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Length: 1.4000007
+  m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4303925939863007401}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &6486873443528471337
