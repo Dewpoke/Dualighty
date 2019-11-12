@@ -10,6 +10,7 @@ public class DarkOrbAnimationController : MonoBehaviour
     public Animator animator;
 
     bool direction; //false = left facing, true = right facing
+    bool wasAirborne = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,14 +27,27 @@ public class DarkOrbAnimationController : MonoBehaviour
         if (darkPlayerScript.GetYSpeed() > 0.2f && !darkPlayerScript.GetIsGrounded())//if the player is moving up and is not grounded
         {
             JumpAnimation();
+            wasAirborne = true;
+        }
+        else if (darkPlayerScript.GetYSpeed() < 0 && !darkPlayerScript.GetIsGrounded())
+        {
+            FallAnimation();
+            wasAirborne = true;
+        }
+        else if (darkPlayerScript.GetIsGrounded() && wasAirborne)
+        {
+            LandAnimation();
+            wasAirborne = false;
         }
         else if (Mathf.Abs(darkPlayerScript.GetXSpeed()) > 0.5f) //if moving
         {
             RunAnimation();
+            wasAirborne = false;
         }
         else
         {
             IdleAnimation();
+            wasAirborne = false;
         }
 
         ChangeDirectionCheck();
@@ -64,6 +78,8 @@ public class DarkOrbAnimationController : MonoBehaviour
         animator.SetBool("Idle", true);
         animator.SetBool("Walking", false);
         animator.SetBool("Jumping", false);
+        animator.SetBool("Falling", false);
+        animator.SetBool("Landing", false);
     }
 
     void RunAnimation()
@@ -71,6 +87,8 @@ public class DarkOrbAnimationController : MonoBehaviour
         animator.SetBool("Idle", false);
         animator.SetBool("Walking", true);
         animator.SetBool("Jumping", false);
+        animator.SetBool("Falling", false);
+        animator.SetBool("Landing", false);
     }
 
     void JumpAnimation()
@@ -78,5 +96,26 @@ public class DarkOrbAnimationController : MonoBehaviour
         animator.SetBool("Idle", false);
         animator.SetBool("Walking", false);
         animator.SetBool("Jumping", true);
+        animator.SetBool("Falling", false);
+        animator.SetBool("Landing", false);
+    }
+
+    void FallAnimation()
+    {
+        animator.SetBool("Idle", false);
+        animator.SetBool("Walking", false);
+        animator.SetBool("Jumping", false);
+        animator.SetBool("Falling", true);
+        animator.SetBool("Landing", false);
+    }
+
+    void LandAnimation()
+    {
+        animator.SetBool("Idle", false);
+        animator.SetBool("Walking", false);
+        animator.SetBool("Jumping", false);
+        animator.SetBool("Falling", false);
+        animator.SetBool("Landing", true);
+        //print("Ping");
     }
 }
