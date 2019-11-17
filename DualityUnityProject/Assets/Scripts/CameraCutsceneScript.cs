@@ -50,6 +50,7 @@ public class CameraCutsceneScript : MonoBehaviour
             {
                 thisCam.enabled = false;
                 mainCam.enabled = true;
+                Destroy(this.gameObject);
             }
             else
             {

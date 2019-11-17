@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SwitchToWallParticles : MonoBehaviour
 {
-    public float travelTime = 5;
-    float pulseDelay = 3;
+    public float travelTime = 4;
+    float pulseDelay = 0.5f;
 
     public GameObject redParticles;
     public GameObject yellowParticles;
@@ -21,6 +21,8 @@ public class SwitchToWallParticles : MonoBehaviour
         inputSwitches = script.inputButtonsArr;
 
         StartCoroutine(SendPulse());
+
+        //StartCoroutine(CallParticleCoroutine());
     }
 
     // Update is called once per frame
@@ -29,6 +31,15 @@ public class SwitchToWallParticles : MonoBehaviour
         
     }
     //Spawn item, Send from switch to wall, when item reaches end despawn it, delay for seconds, repeat
+    IEnumerator CallParticleCoroutine()
+    {
+        while (true)
+        {
+            StartCoroutine(SendPulse());
+            yield return new WaitForSeconds(pulseDelay);
+        }
+    }
+
     IEnumerator SendPulse()
     {
         yield return new WaitForSeconds(pulseDelay);
