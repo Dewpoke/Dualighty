@@ -383,7 +383,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 71f22e638a3861c4b8e322441e3951c2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b850c72600b7a6b4a9102d6f943da811, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -555,8 +555,8 @@ GameObject:
   - component: {fileID: 1901240639}
   - component: {fileID: 1901240642}
   - component: {fileID: 1901240641}
-  - component: {fileID: 1901240640}
   - component: {fileID: 1901240643}
+  - component: {fileID: 1901240640}
   m_Layer: 5
   m_Name: RawImage
   m_TagString: Untagged
@@ -592,7 +592,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1901240638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7107d1e155a3e442bede31a310e8d0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 072a6d7747b7b32438a3e67e8d5abe95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1901240641}
