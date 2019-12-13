@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -38,6 +39,24 @@ public class PlayerManager : MonoBehaviour
         {
             RespawnPlayers();
         }
+
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            SceneManager.LoadScene(0);
+
+        }
+        else if (Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            SceneManager.LoadScene(2);
+
+        }
+         else if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            SceneManager.LoadScene(4);
+
+        }
+
+
     }
 
     void SwapPlayer() //NB: If both are inactive and canSwap == true, then both will become active. Opposite is also true

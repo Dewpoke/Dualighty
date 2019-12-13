@@ -592,11 +592,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1901240638}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7107d1e155a3e442bede31a310e8d0b, type: 3}
+  m_Script: {fileID: 11500000, guid: 1bfeb6d4857234447a657196411f4e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 1901240641}
-  videoToPlay: {fileID: 32900000, guid: 2a913cab96ed7354688436c7a1c14455, type: 3}
+  Countdown: 20
 --- !u!114 &1901240641
 MonoBehaviour:
   m_ObjectHideFlags: 0
